@@ -3,6 +3,11 @@
 This is a starter for a new OCaml application. Add the project idea, team
 members, requirements, and usage instructions once your team has agreed on them.
 
+Team Members:
+Naman Soni - ns2227
+Gamunu Withana gw362
+Kevin Dang kd548
+
 ## Prerequisites
 
 Install OCaml and Dune. This starter was checked with OCaml 5.3.0 and Dune
@@ -30,5 +35,4 @@ it is developed.
 - Add automated and, where appropriate, manual checks; document installation
   and use for someone outside the team.
 
-  Gamunu Withana gw362
-  Kevin Dang kd548
+
