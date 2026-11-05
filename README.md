@@ -4,8 +4,8 @@ This is a starter for a new OCaml application. Add the project idea, team
 members, requirements, and usage instructions once your team has agreed on them.
 
 Team Members:
-Naman Soni - ns2227 \n
-Gamunu Withana gw362 \n
+Naman Soni - ns2227
+Gamunu Withana gw362
 Kevin Dang kd548
 
 ## Prerequisites
