@@ -7,6 +7,8 @@ Team Members:
 Naman Soni - ns2227
 Gamunu Withana gw362
 Kevin Dang kd548
+Thai Koehnle tak86
+Matthew Wang mw2326
 
 ## Prerequisites
 
