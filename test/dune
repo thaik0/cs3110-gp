@@ -1,2 +1,6 @@
 (cram
- (deps ../bin/main.exe))
+ (deps ../bin/main.exe ../demo/terminal_demo.exe))
+
+(test
+ (name test_terminal)
+ (libraries terminal))

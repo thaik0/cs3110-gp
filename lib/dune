@@ -1,0 +1,3 @@
+(library
+ (name terminal)
+ (libraries unix))
