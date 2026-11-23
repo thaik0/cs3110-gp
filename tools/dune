@@ -1,0 +1,3 @@
+(executable
+ (name levelcheck)
+ (libraries levels))
