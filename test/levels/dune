@@ -1,0 +1,12 @@
+(test
+ (name test_levels)
+ (libraries levels ounit2 qcheck-core qcheck-ounit)
+ (deps
+  (glob_files data/*.txt)
+  ../../levels/demo.txt))
+
+(cram
+ (deps
+  %{exe:../../tools/levelcheck.exe}
+  (glob_files data/*.txt)
+  ../../levels/demo.txt))
