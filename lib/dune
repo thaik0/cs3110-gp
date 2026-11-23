@@ -1,0 +1,4 @@
+(library
+ (name generator_contract)
+ (modules generator)
+ (modules_without_implementation generator))

@@ -55,6 +55,12 @@ We will also benchmark solver performance using five levels with increasing numb
 
 ## Development Workflow
 
+Matthew's draft MS2 levels and timing handoff are in
+[`benchmarks/README.md`](benchmarks/README.md). The proposed, unimplemented
+generator interface is [`lib/generator.mli`](lib/generator.mli). Run
+`dune test` to check the five fixtures and their witness routes. The loader,
+game engine, and solver are still pending integration on this branch.
+
 - Each team member works on their own Git branch.
 - Changes are submitted through pull requests.
 - Every pull request requires at least one approval before merging.
