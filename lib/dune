@@ -1,4 +1,5 @@
 (library
  (name generator_contract)
  (modules generator)
+ (libraries levels)
  (modules_without_implementation generator))

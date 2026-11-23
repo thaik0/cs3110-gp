@@ -1,9 +1,14 @@
+; Fixed MS2 benchmark with 1 distinct key/door pairs.
+name: locks-1
+keys: key1
+doors: key1
+map:
 #########
-#@    DE#
-#     # #
-#     # #
-#     # #
-#     # #
-#     # #
-#   k # #
+#@....DE#
+#.....#.#
+#.....#.#
+#.....#.#
+#.....#.#
+#.....#.#
+#...k.#.#
 #########

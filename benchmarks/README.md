@@ -1,53 +1,69 @@
-# Matthew's MS2 benchmark fixtures (draft)
+# Matthew's MS2 benchmark levels
 
-These are five fixed, increasingly large levels for Gamunu's solver timing
-experiment. Random generation is not implemented. The fixtures use the symbols
-already listed in the project README: `#` wall, `@` start, space floor,
-`k` key, `D` locked door, and `E` exit. Each file is a rectangular grid with
-no header. Preserve spaces. Rows are separated by LF; there is a final LF.
+Five fixed, increasingly large levels for the solver experiment. These are
+not randomly generated. The generator is a proposed interface only, in
+`lib/generator.mli`, using the team's `Levels.Level.t` static level type.
 
-**Integration assumption to confirm:** all keys are interchangeable, one key
-opens one door, and an opened door remains open. A witness route is supplied
-for every level and works with either consumable or reusable generic keys.
-With reusable keys, later keys need not be collected, so these fixtures do not
-necessarily increase inventory-state complexity as intended. If the team uses
-colored keys or switch identifiers, adapt these fixtures to the agreed loader
-format before timing. No loader currently exists in the repository.
+## File format and semantics
 
-| File | Width x height | Keys | Doors | Witness moves |
+The `.txt` files use Kevin's loader format (`docs/level_format.md`): a `name:`,
+`keys:`, and `doors:` header followed by `map:` and rectangular rows. Symbols
+are `#` wall, `.` floor, `@` start, `k` key, `D` door, and `E` exit.
+Labels are assigned in reading order. Each key has a distinct label and opens
+only the corresponding door. Keys are reusable, as specified by Naman's rules.
+The boundary is closed and there is exactly one start and exit.
+
+Each matching `.moves` file supplies a `w/a/s/d` witness route. It visits the
+key in each chamber and crosses that chamber's door before continuing.
+For these layouts, the shortest route must visit each chamber's bottom key
+and return to the top door row. Its length is
+`locks * (2 * (height - 3) + 6)`.
+
+| File | Width x height | Distinct key/door pairs | Expected and verified par | Solver states |
 | --- | --- | --- | --- | --- |
-| locks-1.txt | 9 x 9 | 1 | 1 | 18 |
-| locks-2.txt | 15 x 11 | 2 | 2 | 44 |
-| locks-3.txt | 21 x 13 | 3 | 3 | 78 |
-| locks-4.txt | 27 x 15 | 4 | 4 | 120 |
-| locks-5.txt | 33 x 17 | 5 | 5 | 170 |
+| locks-1.txt | 9 x 9 | 1 | 18 | 71 |
+| locks-2.txt | 15 x 11 | 2 | 44 | 182 |
+| locks-3.txt | 21 x 13 | 3 | 78 | 388 |
+| locks-4.txt | 27 x 15 | 4 | 120 | 720 |
+| locks-5.txt | 33 x 17 | 5 | 170 | 1208 |
 
-The matching `.moves` files give a known route using `w/a/s/d`. Each route
-visits a key in the current chamber, returns to the door row, crosses that
-door, and repeats until it reaches the exit. These are witness paths, **not
-claims about the shortest solution**. The automated fixture check verifies
-the route with a small consumable-key model; the team's shared rules and
-solver still need to run these fixtures.
+## Validation completed by Codex
 
-## Timing handoff
+Run `dune test` from the repository root. `test/test_benchmarks.ml` loads all
+five files using `Levels.Level_file.load`, checks dimensions and key/door
+counts, and replays each witness through `Escape.Rules.move`. Each witness
+wins and collects all distinct keys. It then calls `Escape.Solver.search`,
+replays the returned path through the rules, and checks the expected par.
+All five fixture checks and the team's existing 142 unit tests pass.
 
-Run the fixture checks from the repository root with `dune test`. The checks
-are in `test/test_benchmarks.ml`; they validate dimensions, symbols, boundaries,
-key/door counts, and each witness route. They do not test the team's loader,
-rules, or solver, which are not implemented on this branch.
+The test contains a small test-only conversion from string labels in
+`Levels.Level.t` to integer IDs in `Escape.Rules.level`, preserving matching
+labels. It handles the key/door fixtures only and does not change or replace
+Thai's pending production adapter. Once that adapter becomes a shared library,
+the test should use it directly.
 
-Gamunu owns the solver and timing experiment. Once the loader and rules exist:
+For a loader-only check:
 
-1. Parse each `.txt` file with the real loader and check the witness with the
-   shared rules. Run the solver and verify its returned path reaches the exit.
-2. Measure solver time alone, excluding file reading, printing, and user input.
-   Record the command, machine, OCaml version, and solver commit.
-3. Run each level five times; report the median time, shortest-path length,
-   and explored state count if available. Include failures and timeouts.
-4. Compare results with the contract's approximately one-second target.
-   These five layouts are an initial experiment, not evidence that all hard
-   random levels will be fast. Add branching or switch-heavy cases as needed.
+```sh
+dune exec tools/levelcheck.exe -- benchmarks/locks-1.txt
+```
 
-No solver timings have been measured and no solver-performance conclusion is
-claimed. The draft interface is in `lib/generator.mli`. Review it with Gamunu
-and Kevin before implementation; it changes no existing shared interface.
+## Handoff and remaining work
+
+Gamunu already implemented and documented a timing experiment on separate
+chain and vault layouts in `experiments/timing.ml` and `docs/solver.md`.
+These five files supplement that work; Matthew does not claim authorship of
+Gamunu's solver or timing results. No timing measurements for these five file
+fixtures have been recorded. Solver state counts above are not timings.
+
+Before the team includes this contribution, Matthew and Gamunu should review
+the levels and proposed generator interface. Independent human review is
+pending. A solver timing runner for these files can use the shared adapter
+once merged. Measure solver time without loading or printing, and report
+machine, command, commit, repeated-run statistics, and failures. Chain layouts
+alone do not establish performance for arbitrary generated puzzles.
+
+Full random generation, deterministic seed tests, difficulty parameters,
+retry limits, and checks on actual generated output remain MS3 work. The
+proposed callback accepts `Levels.Level.t`; callers will need the shared
+adapter before passing that level to the current solver.
