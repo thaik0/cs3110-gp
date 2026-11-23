@@ -1,6 +1,12 @@
 (cram
- (deps ../bin/main.exe ../demo/terminal_demo.exe))
+ (deps ../bin/main.exe ../demo/terminal_demo.exe ../levels/demo.txt))
 
 (test
  (name test_terminal)
+ (modules test_terminal)
  (libraries terminal))
+
+(test
+ (name test_rules)
+ (modules test_rules)
+ (libraries escape ounit2))

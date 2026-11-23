@@ -1,0 +1,12 @@
+; Switch "a" controls two closed gates; the gate for switch "b" starts open.
+name: switches
+switches: a b
+gates: a b a
+keys: x
+doors: x
+map:
+#########
+#@ s G  #
+#ks g  D#
+#G    E #
+#########

@@ -1,0 +1,13 @@
+; MS2 demo level: pick up the key, open the door, reach the exit.
+; Lines starting with ; are comments. See docs/level_format.md.
+name: demo
+keys: red
+doors: red
+map:
+##########
+#@.....#.#
+#.####.D.#
+#.#k.#.#.#
+#.#..#.#E#
+#......###
+##########
