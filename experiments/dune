@@ -1,0 +1,4 @@
+; The MS2 solver timing experiment: dune exec experiments/timing.exe
+(executable
+ (name timing)
+ (libraries escape picture))

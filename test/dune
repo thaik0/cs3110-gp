@@ -3,4 +3,10 @@
 
 (test
  (name test_rules)
+ (modules test_rules)
  (libraries escape ounit2))
+
+(test
+ (name test_solver)
+ (modules test_solver)
+ (libraries escape picture ounit2))
