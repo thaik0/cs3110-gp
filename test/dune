@@ -1,2 +1,6 @@
 (cram
  (deps ../bin/main.exe))
+
+(test
+ (name test_rules)
+ (libraries escape ounit2))
