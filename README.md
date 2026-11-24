@@ -39,7 +39,27 @@ The planned terminal interface will use the following symbols:
 | `G`    | Gate        |
 | `E`    | Exit        |
 
-Players will use W, A, S, and D to move through the level.
+Players use W, A, S, and D to move through the level. U undoes the last
+successful move, R restarts, and Q quits. A lowercase `d` represents an
+unlocked door, and `_` represents an open gate.
+
+To play the MS2 demo from the project root:
+
+```sh
+dune build
+dune test
+dune exec bin/main.exe
+```
+
+To load another handwritten level, optionally specifying a score file:
+
+```sh
+dune exec bin/main.exe -- levels/demo.txt escape-room.save
+```
+
+The prototype records the best completed move count for each level. Levels
+with initially open gates are not yet supported by the rules engine; the
+loader reports this limitation before play begins.
 
 ## MS2 Development Plan
 
