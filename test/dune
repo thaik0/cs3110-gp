@@ -10,3 +10,14 @@
  (name test_rules)
  (modules test_rules)
  (libraries escape ounit2))
+
+(test
+ (name test_solver)
+ (modules test_solver)
+ (libraries escape picture ounit2))
+
+(test
+ (name test_benchmarks)
+ (modules test_benchmarks)
+ (libraries levels escape)
+ (deps (glob_files ../benchmarks/*.txt) (glob_files ../benchmarks/*.moves)))
