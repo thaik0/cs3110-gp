@@ -10,3 +10,16 @@ code, assets, and other sources, including relevant licenses.
   Every expected value in the solver tests was worked out by hand, and the
   solver is also checked against an independent brute-force search; see
   `docs/solver.md`.
+
+## Matthew Wang (mw2326): MS2 preparation
+
+At Matthew's request, ChatGPT/Codex read the team contract and generated five
+draft benchmark levels, witness routes, a proposed generator interface, fixture
+checks, and accompanying documentation. Codex then adapted the fixtures to
+Kevin's labeled file format, updated the interface to use Levels.Level.t,
+and ran checks through the real loader, rules, and Gamunu's solver. The
+benchmark test contains a temporary test-only conversion between the level
+types; it does not modify Thai's pending adapter. These
+are AI-assisted draft contributions; teammate review and Matthew's independent
+review are pending. No solver implementation, timing results, or contributions
+by other team members are claimed here.
